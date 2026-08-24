@@ -1,4 +1,50 @@
-/* Estilo do modal */
+/* ===== Estilo geral da página ===== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff176;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #4a148c;
+}
+
+.fotos-isa {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.foto-isa {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4a148c;
+}
+
+.pergunta {
+    margin-top: 20px;
+    color: #4a148c;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border: 1px solid #ccc;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+/* ===== Estilo do modal ===== */
 .modal {
     position: fixed;
     top: 0; 
