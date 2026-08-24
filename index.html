@@ -9,6 +9,16 @@
 <body>
     <h1>Calendário de Humor da Isa 🌈</h1>
 
+    <!-- Fotos da Isa -->
+    <div class="fotos-isa">
+        <img src="isa1.png" alt="Isa" class="foto-isa">
+        <img src="isa2.png" alt="Isa" class="foto-isa">
+    </div>
+
+    <!-- Pergunta personalizada -->
+    <h2 class="pergunta">Isa, como você está se sentindo hoje?</h2>
+
+    <!-- Botões de humor -->
     <div class="buttons">
         <button value="👍🏾" onclick="registrarHumor('👍🏾')">👍🏾 Bem</button>
         <button value="🙂" onclick="registrarHumor('🙂')">🙂 Ok</button>
@@ -16,9 +26,16 @@
         <button value="👎🏾👎🏾" onclick="registrarHumor('👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
     </div>
 
-    <h2>Mês Atual</h2>
+    <!-- Nome do mês atual -->
+    <h2 id="mesAtual"></h2>
+
+    <!-- Calendário -->
     <div id="calendario"></div>
 
+    <!-- Resumo mensal -->
+    <div id="resumo" class="resumo-container"></div>
+
+    <!-- Gráfico -->
     <h2>Oscilação de Humor</h2>
     <canvas id="humorChart" width="400" height="200"></canvas>
 
