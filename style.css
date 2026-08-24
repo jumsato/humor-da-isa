@@ -73,24 +73,25 @@ td {
     color: #4a148c;
 }
 
+/* ===== Botões padrão ===== */
 .modal-content button {
     margin: 5px;
     padding: 8px 15px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background-color: #4a148c;
+    background-color: #4a148c; /* roxo */
     color: white;
     font-size: 14px;
 }
 
-/* ===== Botões de limpar ===== */
-button.limpar {
+/* ===== Botões de limpar (sobrescrevem os padrões) ===== */
+.modal-content button.limpar {
     background-color: #e53935; /* vermelho */
     color: white;
     font-weight: bold;
 }
 
-button.limpar:hover {
+.modal-content button.limpar:hover {
     background-color: #c62828; /* vermelho mais escuro */
 }
