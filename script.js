@@ -55,11 +55,6 @@ function salvarModal(tipo, valor) {
     calendarioData[diaSelecionado][tipo] = valor;
     localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
     gerarCalendario();
-    fecharModal(); // fecha automaticamente ao salvar
-}
-
-function fecharModal() {
-    document.getElementById("modal").style.display = "none";
 }
 
 function limparModal(tipo) {
@@ -68,6 +63,10 @@ function limparModal(tipo) {
         localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
         gerarCalendario();
     }
+}
+
+function fecharModal() {
+    document.getElementById("modal").style.display = "none";
 }
 
 gerarCalendario();
