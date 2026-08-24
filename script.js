@@ -62,4 +62,12 @@ function fecharModal() {
     document.getElementById("modal").style.display = "none";
 }
 
+function limparModal(tipo) {
+    if (calendarioData[diaSelecionado] && calendarioData[diaSelecionado][tipo]) {
+        delete calendarioData[diaSelecionado][tipo];
+        localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
+        gerarCalendario();
+    }
+}
+
 gerarCalendario();
