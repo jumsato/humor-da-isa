@@ -51,11 +51,11 @@ td {
     left: 0;
     width: 100%; 
     height: 100%;
-    background: rgba(0,0,0,0.5); /* fundo escuro translúcido */
-    display: none;               /* começa escondido */
+    background: rgba(0,0,0,0.5);
+    display: none;
     justify-content: center; 
     align-items: center;
-    z-index: 1000;               /* garante que fique por cima do calendário */
+    z-index: 1000;
 }
 
 .modal-content {
@@ -64,7 +64,7 @@ td {
     border-radius: 10px;
     text-align: center;
     max-width: 400px;
-    width: 90%;                  /* responsivo */
+    width: 90%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
