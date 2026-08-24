@@ -140,4 +140,13 @@ function gerarGraficos() {
 /* ===== Inicialização ===== */
 document.addEventListener("DOMContentLoaded", () => {
     gerarCalendario();
-});
+})
+
+function fecharGrafico() {
+    // Fecha o modal de gráficos
+    document.getElementById("modalGrafico").style.display = "none";
+    
+    // Regera o calendário para garantir que ele apareça atualizado
+    gerarCalendario();
+}
+
