@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <title>Calendário da Isa 🌈</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Calendário da Isa 🌈</h1>
 
-    <!-- Fotos -->
+    <!-- Foto -->
     <div class="fotos-isa">
-        <img src="isa1.png" alt="Isa" class="foto-isa">
         <img src="isa2.png" alt="Isa" class="foto-isa">
     </div>
+
+    <!-- Pergunta -->
+    <h2 class="pergunta">Como você está se sentindo hoje, Isa?</h2>
 
     <!-- Calendário -->
     <h2 id="mesAtual"></h2>
     <div id="calendario"></div>
 
-    <!-- Modal (popup) -->
+    <!-- Modal -->
     <div id="modal" class="modal" style="display:none;">
         <div class="modal-content">
             <h3 id="modalData"></h3>
@@ -36,8 +37,8 @@
             <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
 
             <p>Menstruação:</p>
-            <button onclick="salvarModal('menstruacao','inicio')">🩸 Início</button>
-            <button onclick="salvarModal('menstruacao','fim')">🩸 Fim</button>
+            <button onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
+            <button onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
             <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
             <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
             <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
