@@ -84,5 +84,13 @@ td {
     font-size: 14px;
 }
 
-/* Botões de limpar */
-button
+/* ===== Botões de limpar ===== */
+button.limpar {
+    background-color: #e53935; /* vermelho */
+    color: white;
+    font-weight: bold;
+}
+
+button.limpar:hover {
+    background-color: #c62828; /* vermelho mais escuro */
+}
