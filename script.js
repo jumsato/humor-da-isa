@@ -7,23 +7,17 @@ function gerarCalendario() {
     document.getElementById("mesAtual").innerText = mes.charAt(0).toUpperCase() + mes.slice(1);
 
     const diasNoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0).getDate();
+    const hojeDia = hoje.getDate();
+
     let html = "<table><tr>";
     for (let d = 1; d <= diasNoMes; d++) {
         const dataStr = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-        html += `<td onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
+        const classeHoje = (d === hojeDia) ? " class='hoje'" : "";
+        html += `<td${classeHoje} onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
         if (d % 7 === 0) html += "</tr><tr>";
     }
     html += "</tr></table>";
     document.getElementById("calendario").innerHTML = html;
-    const hojeDia = hoje.getDate();
-
-for (let d = 1; d <= diasNoMes; d++) {
-    const dataStr = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-    const classeHoje = (d === hojeDia) ? " class='hoje'" : "";
-    html += `<td${classeHoje} onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
-    if (d % 7 === 0) html += "</tr><tr>";
-}
-
 }
 
 function renderIcons(dataStr) {
@@ -83,11 +77,10 @@ function abrirGrafico() {
     document.getElementById("modalGrafico").style.display = "flex";
     gerarGraficos();
 }
-    function fecharGrafico() {
-    document.getElementById("modalGrafico").style.display = "none";
-    gerarCalendario(); // garante que o calendário volte visível e atualizado
-}
 
+function fecharGrafico() {
+    document.getElementById("modalGrafico").style.display = "none";
+    gerarCalendario(); // volta para o calendário atualizado
 }
 
 function gerarGraficos() {
@@ -96,7 +89,6 @@ function gerarGraficos() {
     const sono = datas.map(d => calendarioData[d].sono || "");
     const menstruacao = datas.map(d => calendarioData[d].menstruacao || "");
 
-    // Humor
     new Chart(document.getElementById("graficoHumor"), {
         type: "line",
         data: {
@@ -110,7 +102,6 @@ function gerarGraficos() {
         }
     });
 
-    // Sono
     new Chart(document.getElementById("graficoSono"), {
         type: "line",
         data: {
@@ -124,7 +115,6 @@ function gerarGraficos() {
         }
     });
 
-    // Menstruação
     new Chart(document.getElementById("graficoMenstruacao"), {
         type: "line",
         data: {
@@ -142,13 +132,4 @@ function gerarGraficos() {
 /* ===== Inicialização ===== */
 document.addEventListener("DOMContentLoaded", () => {
     gerarCalendario();
-})
-
-function fecharGrafico() {
-    // Fecha o modal de gráficos
-    document.getElementById("modalGrafico").style.display = "none";
-    
-    // Regera o calendário para garantir que ele apareça atualizado
-    gerarCalendario();
-}
-
+});
