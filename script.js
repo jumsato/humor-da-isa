@@ -15,6 +15,15 @@ function gerarCalendario() {
     }
     html += "</tr></table>";
     document.getElementById("calendario").innerHTML = html;
+    const hojeDia = hoje.getDate();
+
+for (let d = 1; d <= diasNoMes; d++) {
+    const dataStr = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const classeHoje = (d === hojeDia) ? " class='hoje'" : "";
+    html += `<td${classeHoje} onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
+    if (d % 7 === 0) html += "</tr><tr>";
+}
+
 }
 
 function renderIcons(dataStr) {
