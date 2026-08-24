@@ -5,6 +5,7 @@ function registrarHumor(humor) {
     humorData[hoje] = humor;
     localStorage.setItem("humorData", JSON.stringify(humorData));
     gerarCalendario();
+    gerarResumo();
     gerarGrafico();
 }
 
@@ -38,6 +39,29 @@ function gerarCalendario() {
 
     html += "</tr></table>";
     document.getElementById("calendario").innerHTML = html;
+}
+
+function gerarResumo() {
+    const contagem = { "👍🏾": 0, "🙂": 0, "👎🏾": 0, "👎🏾👎🏾": 0 };
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = hoje.getMonth();
+    const ultimoDia = new Date(ano, mes + 1, 0).getDate();
+
+    for (let dia = 1; dia <= ultimoDia; dia++) {
+        const dataStr = `${ano}-${String(mes+1).padStart(2,"0")}-${String(dia).padStart(2,"0")}`;
+        if (humorData[dataStr]) {
+            contagem[humorData[dataStr]]++;
+        }
+    }
+
+    const html = `
+        <div class="resumo-box bem">👍🏾 Bem: ${contagem["👍🏾"]}</div>
+        <div class="resumo-box ok">🙂 Ok: ${contagem["🙂"]}</div>
+        <div class="resumo-box mal">👎🏾 Mal: ${contagem["👎🏾"]}</div>
+        <div class="resumo-box muito-mal">👎🏾👎🏾 Muito mal: ${contagem["👎🏾👎🏾"]}</div>
+    `;
+    document.getElementById("resumo").innerHTML = html;
 }
 
 function gerarGrafico() {
@@ -75,5 +99,13 @@ function gerarGrafico() {
     });
 }
 
+function nomeMesAtual() {
+    const hoje = new Date();
+    const nomeMes = hoje.toLocaleString("pt-BR", { month: "long" });
+    document.getElementById("mesAtual").innerText = nomeMes.charAt(0).toUpperCase() + nomeMes.slice(1);
+}
+
+nomeMesAtual();
 gerarCalendario();
+gerarResumo();
 gerarGrafico();
