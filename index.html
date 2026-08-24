@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Humor da Isa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Calendário de Humor da Isa 🌈</h1>
+
+    <div class="buttons">
+        <button value="👍🏾" onclick="registrarHumor('👍🏾')">👍🏾 Bem</button>
+        <button value="🙂" onclick="registrarHumor('🙂')">🙂 Ok</button>
+        <button value="👎🏾" onclick="registrarHumor('👎🏾')">👎🏾 Mal</button>
+        <button value="👎🏾👎🏾" onclick="registrarHumor('👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
+    </div>
+
+    <h2>Mês Atual</h2>
+    <div id="calendario"></div>
+
+    <h2>Oscilação de Humor</h2>
+    <canvas id="humorChart" width="400" height="200"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
