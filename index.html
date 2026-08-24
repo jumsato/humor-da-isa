@@ -20,7 +20,10 @@
     <h2 id="mesAtual"></h2>
     <div id="calendario"></div>
 
-    <!-- Modal -->
+    <!-- Botão para abrir gráficos -->
+    <button onclick="abrirGrafico()">📊 Ver Gráficos</button>
+
+    <!-- Modal de preenchimento -->
     <div id="modal" class="modal" style="display:none;">
         <div class="modal-content">
             <h3 id="modalData"></h3>
@@ -53,6 +56,20 @@
         </div>
     </div>
 
+    <!-- Modal de gráficos -->
+    <div id="modalGrafico" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Gráficos da Isa</h3>
+            <canvas id="graficoHumor"></canvas>
+            <canvas id="graficoSono"></canvas>
+            <canvas id="graficoMenstruacao"></canvas>
+            <br>
+            <button onclick="fecharGrafico()">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Importa Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
