@@ -1,18 +1,30 @@
+/* Estilo do modal */
 .modal {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    justify-content: center;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* fundo escuro translúcido */
+    display: none;               /* começa escondido */
+    justify-content: center; 
     align-items: center;
+    z-index: 1000;               /* garante que fique por cima do calendário */
 }
 
 .modal-content {
-    background: white;
+    background: #fff;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    max-width: 400px;
+    width: 90%;                  /* responsivo */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #4a148c;
 }
 
 .modal-content button {
@@ -21,4 +33,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    background-color: #4a148c;
+    color: white;
+    font-size: 14px;
 }
