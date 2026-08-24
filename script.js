@@ -115,4 +115,20 @@ function gerarGraficos() {
 
     // Menstruação
     new Chart(document.getElementById("graficoMenstruacao"), {
-        type: "line
+        type: "line",
+        data: {
+            labels: datas,
+            datasets: [{
+                label: "Menstruação",
+                data: menstruacao.map(m => m.length),
+                borderColor: "#e53935",
+                fill: false
+            }]
+        }
+    });
+}
+
+/* ===== Inicialização ===== */
+document.addEventListener("DOMContentLoaded", () => {
+    gerarCalendario();
+});
