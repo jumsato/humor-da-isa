@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Calendário de Humor da Isa 🌈</title>
+    <title>Calendário da Isa 🌈</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -15,49 +15,38 @@
         <img src="isa2.png" alt="Isa" class="foto-isa">
     </div>
 
-    <!-- Humor -->
-    <h2 class="pergunta">Isa, como você está se sentindo hoje?</h2>
-    <div class="buttons">
-        <button value="👍🏾" onclick="registrarHumor('👍🏾')">👍🏾 Bem</button>
-        <button value="🙂" onclick="registrarHumor('🙂')">🙂 Ok</button>
-        <button value="👎🏾" onclick="registrarHumor('👎🏾')">👎🏾 Mal</button>
-        <button value="👎🏾👎🏾" onclick="registrarHumor('👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
-    </div>
-    <div id="resumo" class="resumo-container"></div>
-    <h2>Oscilação de Humor</h2>
-    <canvas id="humorChart" width="400" height="200"></canvas>
-
-    <!-- Sono -->
-    <h2 class="pergunta">Isa, como está seu nível de sono hoje?</h2>
-    <div class="buttons">
-        <button value="😌" onclick="registrarSono('😌')">😌 Disposta</button>
-        <button value="🥱" onclick="registrarSono('🥱')">🥱 Com sono</button>
-        <button value="😴" onclick="registrarSono('😴')">😴 Muito sono</button>
-        <button value="💤" onclick="registrarSono('💤')">💤 Me arrastando</button>
-    </div>
-    <div id="resumoSono" class="resumo-container"></div>
-    <h2>Oscilação de Sono</h2>
-    <canvas id="sonoChart" width="400" height="200"></canvas>
-
-    <!-- Menstruação -->
-    <h2 class="pergunta">Isa, como está seu ciclo hoje?</h2>
-    <div class="buttons">
-        <button value="inicio" onclick="registrarMenstruacao('inicio')">🩸 Início</button>
-        <button value="fim" onclick="registrarMenstruacao('fim')">🩸 Fim</button>
-    </div>
-    <div class="buttons">
-        <button value="pouco" onclick="registrarFluxo('pouco')">🩸 Pouco</button>
-        <button value="moderado" onclick="registrarFluxo('moderado')">🩸🩸 Moderado</button>
-        <button value="intenso" onclick="registrarFluxo('intenso')">🩸🩸🩸 Intenso</button>
-        <button value="muito-intenso" onclick="registrarFluxo('muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
-    </div>
-    <div id="resumoMenstruacao" class="resumo-container"></div>
-    <h2>Oscilação do Fluxo</h2>
-    <canvas id="fluxoChart" width="400" height="200"></canvas>
-
     <!-- Calendário -->
     <h2 id="mesAtual"></h2>
     <div id="calendario"></div>
+
+    <!-- Modal (popup) -->
+    <div id="modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modalData"></h3>
+            <p>Humor:</p>
+            <button onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
+            <button onclick="salvarModal('humor','🙂')">🙂 Ok</button>
+            <button onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
+            <button onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
+
+            <p>Sono:</p>
+            <button onclick="salvarModal('sono','😌')">😌 Disposta</button>
+            <button onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
+            <button onclick="salvarModal('sono','😴')">😴 Muito sono</button>
+            <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
+
+            <p>Menstruação:</p>
+            <button onclick="salvarModal('menstruacao','inicio')">🩸 Início</button>
+            <button onclick="salvarModal('menstruacao','fim')">🩸 Fim</button>
+            <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
+            <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
+            <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
+            <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
+
+            <br><br>
+            <button onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
