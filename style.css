@@ -42,6 +42,20 @@ td {
     border: 1px solid #ccc;
     vertical-align: top;
     cursor: pointer;
+    border-radius: 10px; /* bordas arredondadas */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+td:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* ===== Destaque para o dia atual ===== */
+td.hoje {
+    border: 2px solid #4a148c;
+    background-color: #f3e5f5 !important;
+    font-weight: bold;
 }
 
 /* ===== Estilo do modal ===== */
@@ -63,8 +77,8 @@ td {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    max-width: 400px;
-    width: 90%;
+    max-width: 600px;
+    width: 95%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -80,12 +94,12 @@ td {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background-color: #4a148c; /* roxo */
+    background-color: #4a148c;
     color: white;
     font-size: 14px;
 }
 
-/* ===== Botões de limpar (sobrescrevem os padrões) ===== */
+/* ===== Botões de limpar ===== */
 .modal-content button.limpar {
     background-color: #e53935; /* vermelho */
     color: white;
@@ -94,4 +108,10 @@ td {
 
 .modal-content button.limpar:hover {
     background-color: #c62828; /* vermelho mais escuro */
+}
+
+/* ===== Gráficos ===== */
+canvas {
+    margin: 10px 0;
+    max-width: 100%;
 }
