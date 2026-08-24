@@ -83,9 +83,11 @@ function abrirGrafico() {
     document.getElementById("modalGrafico").style.display = "flex";
     gerarGraficos();
 }
-
-function fecharGrafico() {
+    function fecharGrafico() {
     document.getElementById("modalGrafico").style.display = "none";
+    gerarCalendario(); // garante que o calendário volte visível e atualizado
+}
+
 }
 
 function gerarGraficos() {
