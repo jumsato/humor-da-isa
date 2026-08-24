@@ -95,4 +95,6 @@ td {
 }
 
 .resumo-box.bem { background-color: #81c784; }
-.resumo-box.ok { background-color
+.resumo-box.ok { background-color: #64b5f6; }
+.resumo-box.mal { background-color: #ffb74d; }
+.resumo-box.muito-mal { background-color: #e57373; }
