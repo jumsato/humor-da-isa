@@ -115,3 +115,18 @@ canvas {
     margin: 10px 0;
     max-width: 100%;
 }
+
+.modal-content button.voltar {
+    background-color: #4a148c; /* roxo */
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-content button.voltar:hover {
+    background-color: #6a1b9a; /* roxo mais escuro */
+}
