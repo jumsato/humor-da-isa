@@ -1,100 +1,118 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #fff176;
     text-align: center;
-    margin: 20px;
-    background: linear-gradient(to right, #fceabb, #f8b500);
-    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
     color: #4a148c;
-    margin-bottom: 20px;
 }
 
 .fotos-isa {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 15px;
+    margin: 20px 0;
 }
 
 .foto-isa {
-    width: 180px;
-    height: 180px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
+    object-fit: cover;
     border: 3px solid #4a148c;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .pergunta {
-    font-size: 22px;
+    margin-top: 20px;
     color: #4a148c;
-    margin: 15px 0;
-    font-weight: bold;
 }
 
-.buttons button {
-    margin: 8px;
-    padding: 12px 20px;
-    font-size: 18px;
+.buttons {
+    margin: 10px 0;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    border-radius: 8px;
     color: white;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.buttons button:hover {
-    transform: scale(1.1);
-}
-
+/* Humor */
 button[value="👍🏾"] { background-color: #81c784; }
 button[value="🙂"] { background-color: #64b5f6; }
 button[value="👎🏾"] { background-color: #ffb74d; }
 button[value="👎🏾👎🏾"] { background-color: #e57373; }
 
-table {
-    border-collapse: collapse;
-    margin: auto;
-    background-color: #fff3e0;
-    border-radius: 10px;
-    overflow: hidden;
-}
+/* Sono */
+button[value="😌"] { background-color: #9c27b0; }
+button[value="🥱"] { background-color: #8e24aa; }
+button[value="😴"] { background-color: #7b1fa2; }
+button[value="💤"] { background-color: #6a1b9a; }
 
-td {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ccc;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 20px;
-}
+/* Menstruação */
+button[value="inicio"] { background-color: #ef5350; }
+button[value="fim"] { background-color: #d32f2f; }
+button[value="pouco"] { background-color: #ffcdd2; color: black; }
+button[value="moderado"] { background-color: #ef9a9a; }
+button[value="intenso"] { background-color: #e57373; }
+button[value="muito-intenso"] { background-color: #c62828; }
 
-.today {
-    background-color: #ffeb3b !important;
-    font-weight: bold;
-    border: 2px solid #f57c00;
-}
-
-/* Resumo em caixinhas coloridas */
+/* Resumo */
 .resumo-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
 }
 
 .resumo-box {
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
     color: white;
-    min-width: 100px;
-    text-align: center;
+    font-weight: bold;
 }
 
+/* Cores resumo humor */
 .resumo-box.bem { background-color: #81c784; }
 .resumo-box.ok { background-color: #64b5f6; }
 .resumo-box.mal { background-color: #ffb74d; }
 .resumo-box.muito-mal { background-color: #e57373; }
+
+/* Cores resumo sono */
+.resumo-box.disposta { background-color: #9c27b0; }
+.resumo-box.com-sono { background-color: #8e24aa; }
+.resumo-box.muito-sono { background-color: #7b1fa2; }
+.resumo-box.arrastando { background-color: #6a1b9a; }
+
+/* Cores resumo menstruação */
+.resumo-box.inicio { background-color: #ef5350; }
+.resumo-box.fim { background-color: #d32f2f; }
+.resumo-box.pouco { background-color: #ffcdd2; color: black; }
+.resumo-box.moderado { background-color: #ef9a9a; }
+.resumo-box.intenso { background-color: #e57373; }
+.resumo-box.muito-intenso { background-color: #c62828; }
+
+/* Calendário */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.today {
+    border: 2px solid #4a148c;
+}
