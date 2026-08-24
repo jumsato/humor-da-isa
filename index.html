@@ -24,30 +24,29 @@
     <div id="modal" class="modal" style="display:none;">
         <div class="modal-content">
             <h3 id="modalData"></h3>
+            
             <p>Humor:</p>
-            <p>Humor:</p>
-                    <button onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
-                    <button onclick="salvarModal('humor','🙂')">🙂 Ok</button>
-                    <button onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
-                    <button onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
-                    <button onclick="limparModal('humor')">❌ Limpar Humor</button>
-                    
-                    <p>Sono:</p>
-                    <button onclick="salvarModal('sono','😌')">😌 Disposta</button>
-                    <button onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
-                    <button onclick="salvarModal('sono','😴')">😴 Muito sono</button>
-                    <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
-                    <button onclick="limparModal('sono')">❌ Limpar Sono</button>
-                    
-                    <p>Menstruação:</p>
-                    <button onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
-                    <button onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
-                    <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
-                    <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
-                    <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
-                    <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
-                    <button onclick="limparModal('menstruacao')">❌ Limpar Menstruação</button>
+            <button onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
+            <button onclick="salvarModal('humor','🙂')">🙂 Ok</button>
+            <button onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
+            <button onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
+            <button class="limpar" onclick="limparModal('humor')">❌ Limpar Humor</button>
 
+            <p>Sono:</p>
+            <button onclick="salvarModal('sono','😌')">😌 Disposta</button>
+            <button onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
+            <button onclick="salvarModal('sono','😴')">😴 Muito sono</button>
+            <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
+            <button class="limpar" onclick="limparModal('sono')">❌ Limpar Sono</button>
+
+            <p>Menstruação:</p>
+            <button onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
+            <button onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
+            <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
+            <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
+            <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
+            <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
+            <button class="limpar" onclick="limparModal('menstruacao')">❌ Limpar Menstruação</button>
 
             <br><br>
             <button onclick="fecharModal()">Fechar</button>
@@ -57,3 +56,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+v
