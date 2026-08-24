@@ -1,20 +1,27 @@
-/* ===== Estilo geral da página ===== */
+/* ===== Estilo geral ===== */
 body {
     font-family: Arial, sans-serif;
     background-color: #fff176;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 h1 {
     color: #4a148c;
+    font-size: 24px;
 }
 
+h2 {
+    color: #4a148c;
+    font-size: 18px;
+}
+
+/* ===== Foto ===== */
 .fotos-isa {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .foto-isa {
@@ -25,24 +32,23 @@ h1 {
     border: 3px solid #4a148c;
 }
 
-.pergunta {
-    margin-top: 20px;
-    color: #4a148c;
-}
-
+/* ===== Calendário ===== */
 table {
-    margin: 20px auto;
+    margin: 10px auto;
     border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
 }
 
 td {
-    width: 60px;
+    width: 14%; /* 7 colunas */
     height: 60px;
     text-align: center;
     border: 1px solid #ccc;
     vertical-align: top;
     cursor: pointer;
-    border-radius: 10px; /* bordas arredondadas */
+    border-radius: 8px;
+    font-size: 14px;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -51,14 +57,14 @@ td:hover {
     box-shadow: 0 0 8px rgba(0,0,0,0.3);
 }
 
-/* ===== Destaque para o dia atual ===== */
+/* Dia atual */
 td.hoje {
     border: 2px solid #4a148c;
     background-color: #f3e5f5 !important;
     font-weight: bold;
 }
 
-/* ===== Estilo do modal ===== */
+/* ===== Modal ===== */
 .modal {
     position: fixed;
     top: 0; 
@@ -74,10 +80,10 @@ td.hoje {
 
 .modal-content {
     background: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     text-align: center;
-    max-width: 600px;
+    max-width: 95%;
     width: 95%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
@@ -87,7 +93,7 @@ td.hoje {
     color: #4a148c;
 }
 
-/* ===== Botões padrão ===== */
+/* Botões padrão */
 .modal-content button {
     margin: 5px;
     padding: 8px 15px;
@@ -99,15 +105,32 @@ td.hoje {
     font-size: 14px;
 }
 
-/* ===== Botões de limpar ===== */
+/* Botão limpar */
 .modal-content button.limpar {
-    background-color: #e53935; /* vermelho */
+    background-color: #e53935;
     color: white;
     font-weight: bold;
 }
 
 .modal-content button.limpar:hover {
-    background-color: #c62828; /* vermelho mais escuro */
+    background-color: #c62828;
+}
+
+/* Botão voltar */
+.modal-content button.voltar {
+    background-color: #4a148c;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.modal-content button.voltar:hover {
+    background-color: #6a1b9a;
 }
 
 /* ===== Gráficos ===== */
@@ -116,17 +139,27 @@ canvas {
     max-width: 100%;
 }
 
-.modal-content button.voltar {
-    background-color: #4a148c; /* roxo */
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin-top: 15px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.modal-content button.voltar:hover {
-    background-color: #6a1b9a; /* roxo mais escuro */
+/* ===== Responsividade ===== */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 16px;
+    }
+    .foto-isa {
+        width: 80px;
+        height: 80px;
+    }
+    td {
+        height: 40px;
+        font-size: 12px;
+    }
+    .modal-content {
+        padding: 10px;
+    }
+    .modal-content button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
 }
