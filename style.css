@@ -1,0 +1,55 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    margin: 20px;
+    background: linear-gradient(to right, #fceabb, #f8b500);
+    color: #333;
+}
+
+h1 {
+    color: #4a148c;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    margin: 8px;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: white;
+}
+
+.buttons button:hover {
+    transform: scale(1.1);
+}
+
+button[value="👍🏾"] { background-color: #81c784; }
+button[value="🙂"] { background-color: #64b5f6; }
+button[value="👎🏾"] { background-color: #ffb74d; }
+button[value="👎🏾👎🏾"] { background-color: #e57373; }
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    background-color: #fff3e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+td {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.today {
+    background-color: #ffeb3b !important;
+    font-weight: bold;
+    border: 2px solid #f57c00;
+}
