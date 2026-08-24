@@ -69,4 +69,50 @@ function fecharModal() {
     document.getElementById("modal").style.display = "none";
 }
 
-gerarCalendario();
+/* ===== Gráficos ===== */
+function abrirGrafico() {
+    document.getElementById("modalGrafico").style.display = "flex";
+    gerarGraficos();
+}
+
+function fecharGrafico() {
+    document.getElementById("modalGrafico").style.display = "none";
+}
+
+function gerarGraficos() {
+    const datas = Object.keys(calendarioData);
+    const humor = datas.map(d => calendarioData[d].humor || "");
+    const sono = datas.map(d => calendarioData[d].sono || "");
+    const menstruacao = datas.map(d => calendarioData[d].menstruacao || "");
+
+    // Humor
+    new Chart(document.getElementById("graficoHumor"), {
+        type: "line",
+        data: {
+            labels: datas,
+            datasets: [{
+                label: "Humor",
+                data: humor.map(h => h.length),
+                borderColor: "#4a148c",
+                fill: false
+            }]
+        }
+    });
+
+    // Sono
+    new Chart(document.getElementById("graficoSono"), {
+        type: "line",
+        data: {
+            labels: datas,
+            datasets: [{
+                label: "Sono",
+                data: sono.map(s => s.length),
+                borderColor: "#64b5f6",
+                fill: false
+            }]
+        }
+    });
+
+    // Menstruação
+    new Chart(document.getElementById("graficoMenstruacao"), {
+        type: "line
