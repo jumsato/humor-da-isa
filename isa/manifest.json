@@ -1,0 +1,43 @@
+{
+  "name": "Calendario da Isa",
+  "short_name": "Isa",
+  "id": "/index.html",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a148c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-2.png.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-3.png.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-4.png.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+
+  "screenshots": [
+  {
+    "src": "screenshot-wide.png.png",
+    "sizes": "637x480",
+    "type": "image/png",
+    "form_factor": "wide"
+  },
+
+  {
+    "src": "screenshot-mobile.png.png",
+    "sizes": "601x800",
+    "type": "image/png"
+  }
+]
+
+}

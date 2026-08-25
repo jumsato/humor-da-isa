@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4a148c">
+    <meta charset="UTF-8">
+    <title>Calendário da Isa 🌈</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calendário da Isa 🌈</h1>
+
+    <!-- Foto -->
+    <div class="fotos-isa">
+        <img src="icon-3.png.png" alt="Isa" class="foto-isa">
+    </div>
+
+    <!-- Pergunta -->
+    <h2 class="pergunta">Como você está se sentindo hoje, Isa?</h2>
+
+    <!-- Calendário -->
+    <h2 id="mesAtual"></h2>
+    <div id="calendario"></div>
+
+    <!-- Botão para abrir gráficos -->
+    <button onclick="abrirGrafico()">📊 Ver Gráficos</button>
+
+    <!-- Modal de preenchimento -->
+    <div id="modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3 id="modalData"></h3>
+            
+            <p>Humor:</p>
+            <button onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
+            <button onclick="salvarModal('humor','🙂')">🙂 Ok</button>
+            <button onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
+            <button onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
+            <button class="limpar" onclick="limparModal('humor')">❌ Limpar Humor</button>
+
+            <p>Sono:</p>
+            <button onclick="salvarModal('sono','😌')">😌 Disposta</button>
+            <button onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
+            <button onclick="salvarModal('sono','😴')">😴 Muito sono</button>
+            <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
+            <button class="limpar" onclick="limparModal('sono')">❌ Limpar Sono</button>
+
+            <p>Menstruação:</p>
+            <button onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
+            <button onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
+            <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
+            <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
+            <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
+            <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
+            <button class="limpar" onclick="limparModal('menstruacao')">❌ Limpar Menstruação</button>
+
+            <br><br>
+            <button onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Modal de gráficos -->
+    <div id="modalGrafico" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Gráficos da Isa</h3>
+            <canvas id="graficoHumor"></canvas>
+            <canvas id="graficoSono"></canvas>
+            <canvas id="graficoMenstruacao"></canvas>
+            <br>
+            <button class="voltar" onclick="fecharGrafico()">⬅️ Voltar para o Calendário</button>
+        </div>
+    </div>
+
+    <!-- Importa Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script principal -->
+    <script src="script.js"></script>
+    <script>
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("Service Worker registrado!"))
+      .catch(error => console.log("Erro ao registrar Service Worker:", error));
+  }
+</script>
+
+</body>
+</html>
