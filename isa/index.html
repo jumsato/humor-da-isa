@@ -2,66 +2,122 @@
 <html lang="pt-BR">
 <head>
     <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4a148c">
+<meta name="theme-color" content="#6a3fb0">
     <meta charset="UTF-8">
     <title>Calendário da Isa 🌈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Calendário da Isa 🌈</h1>
+    <!-- Filtro que "recorta" o fundo preto da foto do pé, tornando-o transparente -->
+    <svg width="0" height="0" style="position:absolute; overflow:hidden;" aria-hidden="true">
+        <defs>
+            <filter id="chaveia-preto" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" result="luminancia"/>
+                <feComponentTransfer in="luminancia" result="mascara">
+                    <feFuncA type="gamma" amplitude="1" exponent="0.35" offset="0"/>
+                </feComponentTransfer>
+                <feComposite in="SourceGraphic" in2="mascara" operator="in"/>
+            </filter>
+        </defs>
+    </svg>
 
-    <!-- Foto -->
-    <div class="fotos-isa">
-        <img src="icon-3.png.png" alt="Isa" class="foto-isa">
+    <!-- Ilustrações decorativas ao redor do calendário -->
+    <div class="decoracoes" aria-hidden="true">
+        <span class="deco d1">🌸</span>
+        <span class="deco d2">⭐</span>
+        <span class="deco d3">🎀</span>
+        <span class="deco d4">☁️</span>
+        <span class="deco d5">💜</span>
+        <span class="deco d6">✨</span>
+        <span class="deco deco-foto d7 moldura-flutuante">
+            <img class="foto-recorte" src="deco-foto-1.jpg" alt="">
+        </span>
+        <img class="deco deco-foto d8" src="deco-foto-5.jpg" alt="">
+        <img class="deco deco-foto d9" src="deco-foto-3.jpg" alt="">
+        <img class="deco deco-foto d10 foco-rosto" src="deco-foto-6.jpg" alt="">
+        <img class="deco deco-foto d11" src="deco-foto-7.jpg" alt="">
     </div>
 
-    <!-- Pergunta -->
-    <h2 class="pergunta">Como você está se sentindo hoje, Isa?</h2>
+    <h1>Calendário da Isa 🌈</h1>
 
-    <!-- Calendário -->
-    <h2 id="mesAtual"></h2>
-    <div id="calendario"></div>
+    <div class="cartao-calendario">
+        <!-- Foto -->
+        <div class="fotos-isa">
+            <img src="icon-3.png.png" alt="Isa" class="foto-isa">
+        </div>
 
-    <!-- Botão para abrir gráficos -->
-    <button onclick="abrirGrafico()">📊 Ver Gráficos</button>
+        <!-- Pergunta -->
+        <h2 class="pergunta">Como você está se sentindo hoje, Isa?</h2>
+
+        <!-- Navegação de mês -->
+        <div class="navegacao-mes">
+            <button class="seta" onclick="mesAnterior()" aria-label="Mês anterior">◀</button>
+            <h2 id="mesAtual"></h2>
+            <button class="seta" onclick="mesProximo()" aria-label="Próximo mês">▶</button>
+        </div>
+
+        <!-- Calendário -->
+        <div id="calendario"></div>
+
+        <!-- Botão para abrir gráficos -->
+        <button class="btn-grafico" onclick="abrirGrafico()"><span>📊</span> Ver Gráficos</button>
+    </div>
 
     <!-- Modal de preenchimento -->
     <div id="modal" class="modal" style="display:none;">
         <div class="modal-content">
             <h3 id="modalData"></h3>
-            
-            <p>Humor:</p>
-            <button onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
-            <button onclick="salvarModal('humor','🙂')">🙂 Ok</button>
-            <button onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
-            <button onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
-            <button class="limpar" onclick="limparModal('humor')">❌ Limpar Humor</button>
 
-            <p>Sono:</p>
-            <button onclick="salvarModal('sono','😌')">😌 Disposta</button>
-            <button onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
-            <button onclick="salvarModal('sono','😴')">😴 Muito sono</button>
-            <button onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
-            <button class="limpar" onclick="limparModal('sono')">❌ Limpar Sono</button>
+            <div class="grupo-variavel">
+                <p class="titulo-variavel">😊 Humor</p>
+                <div class="opcoes" data-grupo="humor">
+                    <button data-valor="👍🏾" onclick="salvarModal('humor','👍🏾')">👍🏾 Bem</button>
+                    <button data-valor="🙂" onclick="salvarModal('humor','🙂')">🙂 Ok</button>
+                    <button data-valor="👎🏾" onclick="salvarModal('humor','👎🏾')">👎🏾 Mal</button>
+                    <button data-valor="👎🏾👎🏾" onclick="salvarModal('humor','👎🏾👎🏾')">👎🏾👎🏾 Muito mal</button>
+                </div>
+                <button class="limpar" onclick="limparModal('humor')">✕ Limpar</button>
+            </div>
 
-            <p>Menstruação:</p>
-            <button onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
-            <button onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
-            <button onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
-            <button onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
-            <button onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
-            <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
-            <button class="limpar" onclick="limparModal('menstruacao')">❌ Limpar Menstruação</button>
+            <div class="grupo-variavel">
+                <p class="titulo-variavel">😴 Sono</p>
+                <div class="opcoes" data-grupo="sono">
+                    <button data-valor="😌" onclick="salvarModal('sono','😌')">😌 Disposta</button>
+                    <button data-valor="🥱" onclick="salvarModal('sono','🥱')">🥱 Com sono</button>
+                    <button data-valor="😴" onclick="salvarModal('sono','😴')">😴 Muito sono</button>
+                    <button data-valor="💤" onclick="salvarModal('sono','💤')">💤 Me arrastando</button>
+                </div>
+                <button class="limpar" onclick="limparModal('sono')">✕ Limpar</button>
+            </div>
 
-            <p>Níveis de TOC:</p>
-            <button onclick="salvarModal('toc','🕊️')">🕊️ Inexistente</button>
-            <button onclick="salvarModal('toc','🫩')">🫩 Fraco</button>
-            <button onclick="salvarModal('toc','👺')">👺 Forte</button>
-            <button onclick="salvarModal('toc','🤯')">🤯 Muito forte</button>
-            <button class="limpar" onclick="limparModal('toc')">❌ Limpar TOC</button>
+            <div class="grupo-variavel">
+                <p class="titulo-variavel">🩸 Menstruação</p>
+                <div class="opcoes" data-grupo="menstruacao">
+                    <button data-valor="inicio" onclick="salvarModal('menstruacao','inicio')">👿 Início</button>
+                    <button data-valor="fim" onclick="salvarModal('menstruacao','fim')">👩🏾‍🎤 Fim</button>
+                    <button data-valor="pouco" onclick="salvarModal('menstruacao','pouco')">🩸 Pouco</button>
+                    <button data-valor="moderado" onclick="salvarModal('menstruacao','moderado')">🩸🩸 Moderado</button>
+                    <button data-valor="intenso" onclick="salvarModal('menstruacao','intenso')">🩸🩸🩸 Intenso</button>
+                    <button data-valor="muito-intenso" onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
+                </div>
+                <button class="limpar" onclick="limparModal('menstruacao')">✕ Limpar</button>
+            </div>
 
-            <br><br>
-            <button onclick="fecharModal()">Fechar</button>
+            <div class="grupo-variavel">
+                <p class="titulo-variavel">🤯 Níveis de TOC</p>
+                <div class="opcoes" data-grupo="toc">
+                    <button data-valor="🕊️" onclick="salvarModal('toc','🕊️')">🕊️ Inexistente</button>
+                    <button data-valor="🫩" onclick="salvarModal('toc','🫩')">🫩 Fraco</button>
+                    <button data-valor="👺" onclick="salvarModal('toc','👺')">👺 Forte</button>
+                    <button data-valor="🤯" onclick="salvarModal('toc','🤯')">🤯 Muito forte</button>
+                </div>
+                <button class="limpar" onclick="limparModal('toc')">✕ Limpar</button>
+            </div>
+
+            <button class="fechar" onclick="fecharModal()">Fechar</button>
         </div>
     </div>
 

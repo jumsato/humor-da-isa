@@ -2,23 +2,69 @@ const calendarioData = JSON.parse(localStorage.getItem("calendarioData")) || {};
 let diaSelecionado = null;
 let graficoAtual = null;
 
+// Mês/ano que estão sendo exibidos no momento (começa no mês atual, navegável com as setas)
+const hojeReal = new Date();
+let mesExibido = hojeReal.getMonth();
+let anoExibido = hojeReal.getFullYear();
+
+const DIAS_SEMANA = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
+
 function gerarCalendario() {
-    const hoje = new Date();
-    const mes = hoje.toLocaleString("pt-BR", { month: "long" });
-    document.getElementById("mesAtual").innerText = mes.charAt(0).toUpperCase() + mes.slice(1);
+    const nomeMes = new Date(anoExibido, mesExibido, 1).toLocaleString("pt-BR", { month: "long" });
+    document.getElementById("mesAtual").innerText = `${nomeMes.charAt(0).toUpperCase() + nomeMes.slice(1)} de ${anoExibido}`;
 
-    const diasNoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0).getDate();
-    const hojeDia = hoje.getDate();
+    const diasNoMes = new Date(anoExibido, mesExibido + 1, 0).getDate();
+    const ehMesAtual = anoExibido === hojeReal.getFullYear() && mesExibido === hojeReal.getMonth();
+    const hojeDia = hojeReal.getDate();
+    const primeiroDiaSemana = new Date(anoExibido, mesExibido, 1).getDay(); // 0 = domingo
 
-    let html = "<table><tr>";
-    for (let d = 1; d <= diasNoMes; d++) {
-        const dataStr = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-        const classeHoje = (d === hojeDia) ? " class='hoje'" : "";
-        html += `<td${classeHoje} onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
-        if (d % 7 === 0) html += "</tr><tr>";
+    let html = "<table><thead><tr>";
+    DIAS_SEMANA.forEach(d => html += `<th>${d}</th>`);
+    html += "</tr></thead><tbody><tr>";
+
+    let coluna = 0;
+    for (let i = 0; i < primeiroDiaSemana; i++) {
+        html += "<td class='vazio'></td>";
+        coluna++;
     }
-    html += "</tr></table>";
+
+    for (let d = 1; d <= diasNoMes; d++) {
+        const dataStr = `${anoExibido}-${String(mesExibido+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        const classeHoje = (ehMesAtual && d === hojeDia) ? " class='hoje'" : "";
+        html += `<td${classeHoje} onclick="abrirModal('${dataStr}')" style="background:${getColor(dataStr)}">${d}<br>${renderIcons(dataStr)}</td>`;
+        coluna++;
+        if (coluna % 7 === 0 && d !== diasNoMes) html += "</tr><tr>";
+    }
+    while (coluna % 7 !== 0) {
+        html += "<td class='vazio'></td>";
+        coluna++;
+    }
+    html += "</tr></tbody></table>";
     document.getElementById("calendario").innerHTML = html;
+}
+
+function mesAnterior() {
+    mesExibido--;
+    if (mesExibido < 0) {
+        mesExibido = 11;
+        anoExibido--;
+    }
+    gerarCalendario();
+}
+
+function mesProximo() {
+    mesExibido++;
+    if (mesExibido > 11) {
+        mesExibido = 0;
+        anoExibido++;
+    }
+    gerarCalendario();
+}
+
+// Converte "AAAA-MM-DD" para o formato brasileiro "DD/MM/AAAA"
+function paraFormatoBR(dataStr) {
+    const [ano, mes, dia] = dataStr.split("-");
+    return `${dia}/${mes}/${ano}`;
 }
 
 function renderIcons(dataStr) {
@@ -51,7 +97,8 @@ function getColor(dataStr) {
 
 function abrirModal(dataStr) {
     diaSelecionado = dataStr;
-    document.getElementById("modalData").innerText = `Dia ${dataStr}`;
+    document.getElementById("modalData").innerText = `Dia ${paraFormatoBR(dataStr)}`;
+    atualizarSelecoesModal();
     document.getElementById("modal").style.display = "flex";
 }
 
@@ -60,6 +107,7 @@ function salvarModal(tipo, valor) {
     calendarioData[diaSelecionado][tipo] = valor;
     localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
     gerarCalendario();
+    atualizarSelecoesModal();
 }
 
 function limparModal(tipo) {
@@ -67,7 +115,19 @@ function limparModal(tipo) {
         delete calendarioData[diaSelecionado][tipo];
         localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
         gerarCalendario();
+        atualizarSelecoesModal();
     }
+}
+
+// Marca visualmente qual opção está escolhida em cada variável do dia atual
+function atualizarSelecoesModal() {
+    const dados = calendarioData[diaSelecionado] || {};
+    document.querySelectorAll("#modal .opcoes").forEach(grupo => {
+        const tipo = grupo.dataset.grupo;
+        grupo.querySelectorAll("button").forEach(btn => {
+            btn.classList.toggle("selecionado", dados[tipo] === btn.dataset.valor);
+        });
+    });
 }
 
 function fecharModal() {
@@ -115,15 +175,11 @@ const ESCALAS_GRAFICO = {
 };
 
 function gerarGraficos() {
-    const hoje = new Date();
-    const anoAtual = hoje.getFullYear();
-    const mesAtual = hoje.getMonth(); // 0-indexado
-
-    // Considera apenas os dias do mês/ano exibidos no calendário
+    // Considera apenas os dias do mês/ano que estão sendo exibidos no calendário
     const datas = Object.keys(calendarioData)
         .filter(d => {
             const [ano, mes] = d.split("-").map(Number);
-            return ano === anoAtual && (mes - 1) === mesAtual;
+            return ano === anoExibido && (mes - 1) === mesExibido;
         })
         .sort();
 
@@ -186,7 +242,7 @@ function gerarGraficos() {
             plugins: {
                 title: {
                     display: true,
-                    text: `Resumo do mês ${mesAtual + 1}/${anoAtual}`
+                    text: `Resumo do mês ${mesExibido + 1}/${anoExibido}`
                 },
                 legend: {
                     position: "bottom"
@@ -225,6 +281,22 @@ function gerarGraficos() {
         }
     });
 }
+
+/* ===== Fechar modais clicando fora ou com Esc ===== */
+[document.getElementById("modal"), document.getElementById("modalGrafico")].forEach(modalEl => {
+    modalEl.addEventListener("click", (event) => {
+        if (event.target === modalEl) {
+            if (modalEl.id === "modal") fecharModal();
+            else fecharGrafico();
+        }
+    });
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (document.getElementById("modal").style.display !== "none") fecharModal();
+    if (document.getElementById("modalGrafico").style.display !== "none") fecharGrafico();
+});
 
 /* ===== Inicialização ===== */
 document.addEventListener("DOMContentLoaded", () => {

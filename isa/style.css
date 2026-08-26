@@ -1,20 +1,138 @@
+/* ===== Paleta ===== */
+:root {
+    --roxo-900: #4a2e6b;
+    --roxo-700: #6a3fb0;
+    --roxo-500: #8e5fd1;
+    --roxo-300: #c9b3ea;
+    --roxo-200: #e4d6f7;
+    --roxo-100: #f5eefd;
+    --rosa-200: #f7d9ec;
+    --rosa-400: #e88bbd;
+    --superficie: #ffffff;
+    --texto: #4a2e6b;
+    --raio-grande: 22px;
+    --raio-medio: 14px;
+    --sombra-suave: 0 10px 28px rgba(106, 63, 176, 0.18);
+}
+
 /* ===== Estilo geral ===== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff176;
+    font-family: 'Nunito', Arial, sans-serif;
+    background: linear-gradient(160deg, #f5eefd 0%, #f3e9ff 45%, #fbeaf5 100%);
+    color: var(--texto);
     text-align: center;
     margin: 0;
-    padding: 10px;
+    padding: 16px;
+    min-height: 100vh;
 }
 
 h1 {
-    color: #4a148c;
-    font-size: 24px;
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    color: var(--roxo-700);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Ilustrações decorativas flutuantes ===== */
+.decoracoes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.deco {
+    position: absolute;
+    font-size: 32px;
+    opacity: 0.55;
+    filter: drop-shadow(0 4px 10px rgba(106, 63, 176, 0.18));
+    animation: flutuar 6s ease-in-out infinite;
+}
+
+.d1 { top: 6%;  left: 4%;  font-size: 40px; animation-delay: 0s; }
+.d2 { top: 10%; right: 5%; font-size: 34px; animation-delay: 1s; }
+.d3 { bottom: 10%; left: 6%; font-size: 36px; animation-delay: 2s; }
+.d4 { bottom: 8%;  right: 6%; font-size: 30px; animation-delay: 0.6s; }
+.d5 { top: 46%; left: 2%;  font-size: 26px; animation-delay: 1.6s; }
+.d6 { top: 50%; right: 3%; font-size: 28px; animation-delay: 2.4s; }
+.d7 { top: 24%; left: 6%; animation-delay: 0.8s; }
+.d8 { top: 26%; right: 6%; animation-delay: 1.2s; }
+.d9 { bottom: 32%; left: 4%; animation-delay: 1.8s; }
+.d10 { bottom: 34%; right: 4%; animation-delay: 2.2s; }
+.d11 { bottom: 18%; right: 5%; animation-delay: 2.6s; }
+
+/* Fotos enviadas, encaixadas em moldura circular */
+.deco-foto {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    opacity: 1;
+    box-shadow: 0 10px 26px rgba(106, 63, 176, 0.4);
+}
+
+/* Foco no rosto em vez do centro da foto (fotos de corpo inteiro) */
+.foco-rosto {
+    object-position: 50% 22%;
+}
+
+/* Foto do pé: fundo preto "some" e vira roxo pastel (parece flutuar) */
+.moldura-flutuante {
+    display: inline-flex;
+    background: var(--roxo-100);
+    overflow: hidden;
+    padding: 0;
+}
+
+.moldura-flutuante .foto-recorte {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: url(#chaveia-preto);
+}
+
+@keyframes flutuar {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(6deg); }
+}
+
+@media (max-width: 760px) {
+    /* No celular escondemos só os emojis (poluiriam a tela pequena);
+       as fotos continuam aparecendo, é aí que a graça acontece */
+    .decoracoes .deco:not(.deco-foto) { display: none; }
+    .deco-foto {
+        width: 96px;
+        height: 96px;
+    }
 }
 
 h2 {
-    color: #4a148c;
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    color: var(--roxo-700);
     font-size: 18px;
+    font-weight: 700;
+}
+
+.pergunta {
+    color: var(--roxo-900);
+    font-weight: 600;
+}
+
+/* ===== Card central (foto + navegação + calendário + botão, tudo alinhado) ===== */
+.cartao-calendario {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* ===== Foto ===== */
@@ -29,108 +147,300 @@ h2 {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #4a148c;
+    border: 4px solid var(--roxo-300);
+    box-shadow: var(--sombra-suave);
+}
+
+/* ===== Navegação de mês ===== */
+.navegacao-mes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 4px 0 12px;
+}
+
+.navegacao-mes h2 {
+    margin: 0;
+    min-width: 170px;
+}
+
+.seta {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid var(--roxo-300);
+    background: var(--superficie);
+    color: var(--roxo-700);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(106, 63, 176, 0.15);
+    transition: transform 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+
+.seta:hover {
+    background: var(--roxo-200);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-suave);
+}
+
+.seta:active {
+    transform: translateY(0);
 }
 
 /* ===== Calendário ===== */
-table {
-    margin: 10px auto;
-    border-collapse: collapse;
+#calendario {
     width: 100%;
-    max-width: 600px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 3px solid var(--roxo-300);
+    border-radius: var(--raio-grande);
+    padding: 12px;
+    box-shadow: var(--sombra-suave);
+    box-sizing: border-box;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 6px;
+    width: 100%;
+}
+
+#calendario th {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--roxo-700);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 4px;
+}
+
+td.vazio {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    cursor: default;
+}
+
+td.vazio:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
 }
 
 td {
     width: 14%; /* 7 colunas */
     height: 60px;
     text-align: center;
-    border: 1px solid #ccc;
+    border: 2.5px solid var(--roxo-300);
     vertical-align: top;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: var(--raio-medio);
     font-size: 14px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 700;
+    background: var(--superficie);
+    color: var(--texto);
+    box-shadow: 0 2px 6px rgba(106, 63, 176, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 td:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: var(--sombra-suave);
+    border-color: var(--roxo-700);
 }
 
 /* Dia atual */
 td.hoje {
-    border: 2px solid #4a148c;
-    background-color: #f3e5f5 !important;
-    font-weight: bold;
+    border: 3px solid var(--roxo-700);
+    background: linear-gradient(135deg, var(--roxo-100), var(--rosa-200));
+    box-shadow: 0 0 0 4px rgba(106, 63, 176, 0.15);
+}
+
+/* ===== Botão Ver Gráficos ===== */
+.btn-grafico {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0 4px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--roxo-500), var(--roxo-700));
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(106, 63, 176, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-grafico span {
+    font-size: 18px;
+}
+
+.btn-grafico:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(106, 63, 176, 0.5);
+}
+
+.btn-grafico:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(106, 63, 176, 0.35);
 }
 
 /* ===== Modal ===== */
 .modal {
     position: fixed;
-    top: 0; 
+    top: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(74, 46, 107, 0.45);
+    backdrop-filter: blur(2px);
     display: none;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
 .modal-content {
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
+    background: var(--superficie);
+    padding: 20px;
+    border-radius: var(--raio-grande);
     text-align: center;
     max-width: 95%;
-    width: 95%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(74, 46, 107, 0.4);
+    animation: apareceModal 0.22s ease;
+}
+
+@keyframes apareceModal {
+    from { opacity: 0; transform: scale(0.94) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .modal-content h3 {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
     margin-top: 0;
-    color: #4a148c;
+    color: var(--roxo-700);
 }
 
-/* Botões padrão */
-.modal-content button {
-    margin: 5px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 6px;
+/* ===== Grupos de variáveis dentro do modal ===== */
+.grupo-variavel {
+    background: var(--roxo-100);
+    border-radius: var(--raio-medio);
+    padding: 12px;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.titulo-variavel {
+    font-family: 'Quicksand', 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--roxo-700);
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.opcoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Botões de opção (chips) */
+.opcoes button {
+    margin: 0;
+    padding: 8px 14px;
+    border: 2px solid var(--roxo-300);
+    border-radius: 999px;
     cursor: pointer;
-    background-color: #4a148c;
-    color: white;
-    font-size: 14px;
+    background-color: var(--superficie);
+    color: var(--roxo-900);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    transition: transform 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 
-/* Botão limpar */
+.opcoes button:hover {
+    background-color: var(--roxo-200);
+    border-color: var(--roxo-500);
+    transform: translateY(-2px);
+}
+
+/* Opção atualmente escolhida naquele dia */
+.opcoes button.selecionado {
+    background: linear-gradient(135deg, var(--roxo-500), var(--roxo-700));
+    color: #fff;
+    border-color: var(--roxo-700);
+    box-shadow: 0 6px 14px rgba(106, 63, 176, 0.4);
+}
+
+/* Botão limpar (por variável) */
 .modal-content button.limpar {
-    background-color: #e53935;
-    color: white;
-    font-weight: bold;
+    margin-top: 10px;
+    padding: 6px 14px;
+    border: 2px solid var(--rosa-400);
+    border-radius: 999px;
+    background-color: #fff0f6;
+    color: #c2185b;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .modal-content button.limpar:hover {
-    background-color: #c62828;
+    background-color: var(--rosa-200);
 }
 
-/* Botão voltar */
-.modal-content button.voltar {
-    background-color: #4a148c;
-    color: white;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-top: 10px;
+/* Botão Fechar do modal de preenchimento */
+.modal-content button.fechar {
+    margin-top: 6px;
+    padding: 10px 26px;
+    border: 2px solid var(--roxo-300);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--roxo-700);
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.modal-content button.fechar:hover {
+    background-color: var(--roxo-100);
+    transform: translateY(-2px);
+}
+
+/* Botão voltar (modal de gráficos) */
+.modal-content button.voltar {
+    background: linear-gradient(135deg, var(--roxo-500), var(--roxo-700));
+    color: white;
+    font-weight: 700;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 999px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
     width: 100%;
+    box-shadow: 0 8px 18px rgba(106, 63, 176, 0.35);
 }
 
 .modal-content button.voltar:hover {
-    background-color: #6a1b9a;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(106, 63, 176, 0.45);
 }
 
 /* ===== Gráficos ===== */
@@ -142,7 +452,7 @@ canvas {
 /* ===== Responsividade ===== */
 @media (max-width: 480px) {
     h1 {
-        font-size: 20px;
+        font-size: 21px;
     }
     h2 {
         font-size: 16px;
@@ -152,14 +462,19 @@ canvas {
         height: 80px;
     }
     td {
-        height: 40px;
+        height: 42px;
         font-size: 12px;
     }
     .modal-content {
-        padding: 10px;
+        padding: 14px;
+        width: 100%;
     }
-    .modal-content button {
+    .opcoes button {
         font-size: 12px;
-        padding: 6px 10px;
+        padding: 7px 11px;
+    }
+    .btn-grafico {
+        padding: 10px 22px;
+        font-size: 14px;
     }
 }
