@@ -53,6 +53,13 @@
             <button onclick="salvarModal('menstruacao','muito-intenso')">🩸🩸🩸🩸 Muito intenso</button>
             <button class="limpar" onclick="limparModal('menstruacao')">❌ Limpar Menstruação</button>
 
+            <p>Níveis de TOC:</p>
+            <button onclick="salvarModal('toc','🕊️')">🕊️ Inexistente</button>
+            <button onclick="salvarModal('toc','🫩')">🫩 Fraco</button>
+            <button onclick="salvarModal('toc','👺')">👺 Forte</button>
+            <button onclick="salvarModal('toc','🤯')">🤯 Muito forte</button>
+            <button class="limpar" onclick="limparModal('toc')">❌ Limpar TOC</button>
+
             <br><br>
             <button onclick="fecharModal()">Fechar</button>
         </div>
@@ -62,9 +69,7 @@
     <div id="modalGrafico" class="modal" style="display:none;">
         <div class="modal-content">
             <h3>Gráficos da Isa</h3>
-            <canvas id="graficoHumor"></canvas>
-            <canvas id="graficoSono"></canvas>
-            <canvas id="graficoMenstruacao"></canvas>
+            <canvas id="graficoMensal"></canvas>
             <br>
             <button class="voltar" onclick="fecharGrafico()">⬅️ Voltar para o Calendário</button>
         </div>

@@ -1,5 +1,6 @@
 const calendarioData = JSON.parse(localStorage.getItem("calendarioData")) || {};
 let diaSelecionado = null;
+let graficoAtual = null;
 
 function gerarCalendario() {
     const hoje = new Date();
@@ -22,7 +23,7 @@ function gerarCalendario() {
 
 function renderIcons(dataStr) {
     if (!calendarioData[dataStr]) return "";
-    const { humor, sono, menstruacao } = calendarioData[dataStr];
+    const { humor, sono, menstruacao, toc } = calendarioData[dataStr];
     let icons = "";
     if (humor) icons += humor + " ";
     if (sono) icons += sono + " ";
@@ -34,6 +35,7 @@ function renderIcons(dataStr) {
         else if (menstruacao === "intenso") icons += "🩸🩸🩸 ";
         else if (menstruacao === "muito-intenso") icons += "🩸🩸🩸🩸 ";
     }
+    if (toc) icons += toc + " ";
     return icons;
 }
 
@@ -83,48 +85,143 @@ function fecharGrafico() {
     gerarCalendario(); // volta para o calendário atualizado
 }
 
+const ESCALAS_GRAFICO = {
+    humor: {
+        "👍🏾": { valor: 1, label: "Bem" },
+        "🙂": { valor: 2, label: "Ok" },
+        "👎🏾": { valor: 3, label: "Mal" },
+        "👎🏾👎🏾": { valor: 4, label: "Muito mal" }
+    },
+    sono: {
+        "😌": { valor: 1, label: "Disposta" },
+        "🥱": { valor: 2, label: "Com sono" },
+        "😴": { valor: 3, label: "Muito sono" },
+        "💤": { valor: 4, label: "Me arrastando" }
+    },
+    menstruacao: {
+        "inicio": { valor: 1, label: "Início", emoji: "👿" },
+        "pouco": { valor: 1, label: "Pouco", emoji: "🩸" },
+        "moderado": { valor: 2, label: "Moderado", emoji: "🩸🩸" },
+        "intenso": { valor: 3, label: "Intenso", emoji: "🩸🩸🩸" },
+        "muito-intenso": { valor: 4, label: "Muito intenso", emoji: "🩸🩸🩸🩸" },
+        "fim": { valor: 0, label: "Fim", emoji: "👩🏾‍🎤" }
+    },
+    toc: {
+        "🕊️": { valor: 0, label: "Inexistente" },
+        "🫩": { valor: 2, label: "Fraco" },
+        "👺": { valor: 3, label: "Forte" },
+        "🤯": { valor: 4, label: "Muito forte" }
+    }
+};
+
 function gerarGraficos() {
-    const datas = Object.keys(calendarioData);
-    const humor = datas.map(d => calendarioData[d].humor || "");
-    const sono = datas.map(d => calendarioData[d].sono || "");
-    const menstruacao = datas.map(d => calendarioData[d].menstruacao || "");
+    const hoje = new Date();
+    const anoAtual = hoje.getFullYear();
+    const mesAtual = hoje.getMonth(); // 0-indexado
 
-    new Chart(document.getElementById("graficoHumor"), {
+    // Considera apenas os dias do mês/ano exibidos no calendário
+    const datas = Object.keys(calendarioData)
+        .filter(d => {
+            const [ano, mes] = d.split("-").map(Number);
+            return ano === anoAtual && (mes - 1) === mesAtual;
+        })
+        .sort();
+
+    const camposOrdem = ["humor", "sono", "menstruacao", "toc"];
+
+    function valoresDoCampo(campo) {
+        return datas.map(d => {
+            const valorBruto = calendarioData[d][campo];
+            const info = valorBruto ? ESCALAS_GRAFICO[campo][valorBruto] : undefined;
+            return info ? info.valor : null; // null = "sem dado" (gap na linha)
+        });
+    }
+
+    if (graficoAtual) {
+        graficoAtual.destroy();
+    }
+
+    graficoAtual = new Chart(document.getElementById("graficoMensal"), {
         type: "line",
         data: {
-            labels: datas,
-            datasets: [{
-                label: "Humor",
-                data: humor.map(h => h.length),
-                borderColor: "#4a148c",
-                fill: false
-            }]
-        }
-    });
-
-    new Chart(document.getElementById("graficoSono"), {
-        type: "line",
-        data: {
-            labels: datas,
-            datasets: [{
-                label: "Sono",
-                data: sono.map(s => s.length),
-                borderColor: "#64b5f6",
-                fill: false
-            }]
-        }
-    });
-
-    new Chart(document.getElementById("graficoMenstruacao"), {
-        type: "line",
-        data: {
-            labels: datas,
-            datasets: [{
-                label: "Menstruação",
-                data: menstruacao.map(m => m.length),
-                borderColor: "#e53935",
-                fill: false
-            }]
+            labels: datas.map(d => d.split("-")[2]), // só o número do dia
+            datasets: [
+                {
+                    label: "😊 Humor",
+                    data: valoresDoCampo("humor"),
+                    borderColor: "#8e24aa",
+                    backgroundColor: "#8e24aa",
+                    spanGaps: true,
+                    tension: 0.3
+                },
+                {
+                    label: "😴 Sono",
+                    data: valoresDoCampo("sono"),
+                    borderColor: "#1e88e5",
+                    backgroundColor: "#1e88e5",
+                    spanGaps: true,
+                    tension: 0.3
+                },
+                {
+                    label: "🩸 Menstruação",
+                    data: valoresDoCampo("menstruacao"),
+                    borderColor: "#e53935",
+                    backgroundColor: "#e53935",
+                    spanGaps: true,
+                    tension: 0.3
+                },
+                {
+                    label: "🤯 TOC",
+                    data: valoresDoCampo("toc"),
+                    borderColor: "#f9a825",
+                    backgroundColor: "#f9a825",
+                    spanGaps: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Resumo do mês ${mesAtual + 1}/${anoAtual}`
+                },
+                legend: {
+                    position: "bottom"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const campo = camposOrdem[context.datasetIndex];
+                            const data = datas[context.dataIndex];
+                            const valorBruto = calendarioData[data] ? calendarioData[data][campo] : null;
+                            const info = valorBruto ? ESCALAS_GRAFICO[campo][valorBruto] : null;
+                            if (!info) return `${context.dataset.label}: sem registro`;
+                            const emojiExibir = info.emoji || valorBruto;
+                            return `${context.dataset.label}: ${emojiExibir} ${info.label}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: "Dia do mês" }
+                },
+                y: {
+                    min: 0,
+                    max: 4,
+                    ticks: {
+                        stepSize: 1,
+                        callback: (valor) => {
+                            const legendas = { 0: "Nenhum", 1: "Leve", 2: "Moderado", 3: "Forte", 4: "Muito forte" };
+                            return legendas[valor] ?? valor;
+                        }
+                    },
+                    title: { display: true, text: "Intensidade" }
+                }
+            }
         }
     });
 }
