@@ -82,6 +82,7 @@ function renderIcons(dataStr) {
         else if (menstruacao === "muito-intenso") icons += "🩸🩸🩸🩸 ";
     }
     if (toc) icons += toc + " ";
+    if (calendarioData[dataStr].nota && calendarioData[dataStr].nota.trim() !== "") icons += "📝";
     return icons;
 }
 
@@ -98,6 +99,7 @@ function getColor(dataStr) {
 function abrirModal(dataStr) {
     diaSelecionado = dataStr;
     document.getElementById("modalData").innerText = `Dia ${paraFormatoBR(dataStr)}`;
+    document.getElementById("notaDia").value = (calendarioData[dataStr] && calendarioData[dataStr].nota) || "";
     atualizarSelecoesModal();
     document.getElementById("modal").style.display = "flex";
 }
@@ -108,6 +110,12 @@ function salvarModal(tipo, valor) {
     localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
     gerarCalendario();
     atualizarSelecoesModal();
+}
+
+function salvarNota(valor) {
+    if (!calendarioData[diaSelecionado]) calendarioData[diaSelecionado] = {};
+    calendarioData[diaSelecionado].nota = valor;
+    localStorage.setItem("calendarioData", JSON.stringify(calendarioData));
 }
 
 function limparModal(tipo) {
@@ -132,6 +140,7 @@ function atualizarSelecoesModal() {
 
 function fecharModal() {
     document.getElementById("modal").style.display = "none";
+    gerarCalendario();
 }
 
 /* ===== Gráficos ===== */

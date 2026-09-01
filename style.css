@@ -387,6 +387,27 @@ td.hoje {
     box-shadow: 0 6px 14px rgba(106, 63, 176, 0.4);
 }
 
+/* Campo de texto livre (anotação do dia) */
+.campo-nota {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px;
+    border: 2px solid var(--roxo-300);
+    border-radius: var(--raio-medio);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    color: var(--roxo-900);
+    background-color: var(--superficie);
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+.campo-nota:focus {
+    outline: none;
+    border-color: var(--roxo-500);
+}
+
 /* Botão limpar (por variável) */
 .modal-content button.limpar {
     margin-top: 10px;
